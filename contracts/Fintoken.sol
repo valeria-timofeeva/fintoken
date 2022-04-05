@@ -21,6 +21,14 @@ contract Fintoken {
         _totalSupply = totalSupply_;
     }
 
+    function name() public pure returns (string memory) {
+        return "Fintoken";
+    }
+
+    function symbol() public pure returns (string memory) {
+        return "FIN";
+    }
+
     function totalSupply() external view returns (uint256) {
         return _totalSupply;
     }
@@ -30,8 +38,8 @@ contract Fintoken {
     }
 
     function transfer(address to, uint256 amount) external returns (bool) {
-        require(_balances[msg.sender] >= amount);
-        require(to != address(0));
+        require(_balances[msg.sender] >= amount, "Not enouth tokens");
+        require(to != address(0), "No tokens");
 
         _balances[msg.sender] -= amount;
         _balances[to] += amount;
@@ -58,11 +66,13 @@ contract Fintoken {
         address to,
         uint256 amount
     ) external returns (bool) {
-        require(amount <= _allowances[from][msg.sender]);
-        require(_balances[from] >= amount);
+        require(amount <= _allowances[from][msg.sender], "Not enouth allowances");
+        require(_balances[from] >= amount, "Not enouth tokens");
 
         _balances[from] -= amount;
         _balances[to] += amount;
+        _allowances[from][msg.sender] -= amount;
+
         emit Transfer(from, to, amount);
         return true;
     }
