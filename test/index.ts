@@ -13,7 +13,7 @@ describe("Fin token", function () {
 
   async function deployContract() {
     const FintokenFactory = await ethers.getContractFactory("Fintoken")
-    FintokenContract = await FintokenFactory.deploy(name, symbol);
+    FintokenContract = await FintokenFactory.deploy(name, symbol, 1000);
     await FintokenContract.deployed();
     console.log("Contract deployed with name: ${name}, symbol: ${symbol}");
   }
