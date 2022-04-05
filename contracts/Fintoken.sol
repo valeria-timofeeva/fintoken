@@ -39,7 +39,7 @@ contract Fintoken {
 
     function transfer(address to, uint256 amount) external returns (bool) {
         require(_balances[msg.sender] >= amount, "Not enouth tokens");
-        require(to != address(0), "No tokens");
+        require(to != address(0), "Empty address");
 
         _balances[msg.sender] -= amount;
         _balances[to] += amount;
