@@ -1,10 +1,11 @@
 import { ethers } from "hardhat";
 import * as fs from "fs";
+import { utils } from "ethers";
 
 async function main() {
 
   const FintokenFactory = await ethers.getContractFactory("Fintoken");
-  const fintokenContract = await FintokenFactory.deploy("Fintoken", "FIN", 1000);
+  const fintokenContract = await FintokenFactory.deploy("Fintoken", "FIN", utils.parseUnits("1000000"));
 
   await fintokenContract.deployed();
   console.log("Fintoken deployed, fintoken address:", fintokenContract.address);
